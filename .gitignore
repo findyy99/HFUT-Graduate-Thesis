@@ -10,3 +10,5 @@
 *.bbl
 _minted-main
 .DS_Store
+.gitignore
+.synctex.gz
