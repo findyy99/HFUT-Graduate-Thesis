@@ -1,0 +1,172 @@
+%ltxdoc！！
+\documentclass[a4paper]{ltxdoc}
+\usepackage[UTF8, heading=true, scheme=plain, linespread=1.2, zihao=-4, fontset=fandol]{ctex}
+
+
+% ================加入数学公式============
+\usepackage{amsmath}
+% ================浮动体================
+\usepackage{float}
+
+% ===============amsmath与ctex字体冲突=======
+\usepackage{lmodern}
+
+%==============列表相关=================
+% 列表定义
+\usepackage{enumitem}
+% 使用表格
+\usepackage{array}
+
+
+% =================页边距调整====================
+\usepackage{geometry}
+\geometry{left=3cm, right=3cm, top=2.54cm, bottom=2.54cm}
+
+
+% ================目录格式
+\usepackage{titletoc}
+
+% 公式章节编号
+% \makeatletter
+% \@addtoreset{equation}{section}
+% \makeatother
+% \renewcommand{\theequation}{\arabic{section}.\arabic{equation}}
+\numberwithin{equation}{section} %https://blog.csdn.net/chen134225/article/details/78985537
+
+
+% counterwith重定义问题
+\let\counterwithout\relax 
+\let\counterwithin\relax
+
+%=============添加超链接功能============
+\usepackage[hidelinks]{hyperref}
+
+
+\usepackage{parskip, seqsplit, fancyhdr, etoolbox, tocloft}
+\usepackage{flafter, chngcntr, caption, multirow, graphicx}
+\usepackage{minted} % 代码高亮模块，若不需要就删去
+\usepackage[bottom]{footmisc} % 脚注放到页面最底部
+
+%=============图表编号================
+\counterwithin{figure}{section} % 图的编号按section编排
+\counterwithin{table}{section} % 表的编号按section编排
+% 自定义图表的标题
+\DeclareCaptionFormat{smallformat}{\songti \small #1#2#3} % 宋体，五号
+
+\input{self_info/self_info.tex}
+
+\captionsetup{
+	labelsep=quad, % caption去掉分隔符: %标号与列表项的距离
+	textformat=simple,
+	format=smallformat,
+}
+
+
+% \setlength{\headheight}{21.18314pt}
+
+% ===============定义每章标题的格式=================
+\ctexset{
+	space=auto,
+	section = {
+		format = \centering \heiti \sanhao \bfseries,
+		aftername = \hspace{0.5em},
+		afterindent = true,
+	},
+	subsection = {
+%		format = \heiti \bfseries,
+		format = \heiti \xiaosihao,
+		aftername = \hspace{0.4em},
+		afterindent = true,
+	},
+	subsubsection = {
+		format = \songti \bfseries \xiaosihao,
+		aftername = \hspace{0.4em},
+		afterindent = true,
+	},
+}
+
+
+
+\setmainfont{Times New Roman} % 设置默认英文字体
+
+
+\begin{document}
+% 插入封面
+\include{tex/cover}
+% 插入中文标题
+\include{tex/chinese_title}
+% 插入英文标题
+\include{tex/english_title}
+% 插入独立完成声明
+\include{tex/statement}
+% 插入摘要
+\include{tex/abstract.tex}
+
+% 目录
+\begingroup
+    \baselineskip=22pt %目录、图片、表格清单间距22pt
+    {
+        \tocloftpagestyle{empty}
+        \setlength{\cftfignumwidth}{3.5em}
+        \setlength{\cfttabnumwidth}{3.5em}
+        \clearpage
+
+        \titlecontents{section}[0em]{\heiti }
+        {\thecontentslabel\ }{}
+        {\hspace{.5em}\titlerule*[4pt]{$\cdot$}\contentspage}
+
+        \tableofcontents
+        \addtocontents{toc}{\protect\thispagestyle{empty}}
+        \pagenumbering{gobble}
+
+        \clearpage
+        \listoffigures
+
+        \clearpage
+        \listoftables
+
+        \pagenumbering{arabic}
+    }
+\endgroup
+
+% 设置页眉
+\newgeometry{left=2.8cm, right=2.8cm, top=3cm, bottom=3cm}
+\fancyhead{}
+\chead{\small 合肥工业大学毕业设计（论文）\vspace{0.3cm}}
+\pagestyle{fancy}
+
+% 插入正文
+\include{tex/demo.tex}
+
+
+% =============参考文献===========
+{
+\clearpage % 分页
+\phantomsection % 使得hyperref目录能够跳转到正确的位置
+\addcontentsline{toc}{section}{参考文献} % 添加到目录中
+\nocite{*} % 添加所有文献
+%\bibliographystyle{gbt7714-2005} % 样式
+\wuhao
+\setlength{\baselineskip}{20pt}
+\bibliographystyle{bib/gbt7714-2005} % 样式
+\bibliography{bib/ref.bib}    % 文献数据库
+}
+
+
+
+% ============致谢=============
+\begin{acknowledge}
+本论文是在指导老师ＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸ。
+
+ＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸＸ。
+\end{acknowledge}
+
+
+
+
+% ============附录，必要时=======
+\begin{appendix}
+【说明：以下内容可放在附录之内：(1) 正文内过于冗长的公式推导；(2) 方便他人阅读所需的辅助性数学工具或表格；(3) 重复性数据和图表；(4) 论文使用的主要符号的意义和单位；(5) 程序说明和程序全文。可按"附录1  XXX"、"附录2  XXX"、……，分章书写。如无需附录，请删除此页。】
+\end{appendix}
+
+\end{document}
