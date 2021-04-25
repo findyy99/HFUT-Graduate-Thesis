@@ -1,0 +1,13 @@
+% =============参考文献===========
+{
+\clearpage % 分页
+\phantomsection % 使得hyperref目录能够跳转到正确的位置
+\addcontentsline{toc}{section}{参考文献} % 添加到目录中
+\nocite{*} % 添加所有文献
+%\bibliographystyle{gbt7714-2005} % 样式
+\wuhao							%设置字号
+\songti							%设置字体
+\setlength{\baselineskip}{20pt} %20磅行距
+\bibliographystyle{bib/gbt7714-2005} % 样式
+\bibliography{bib/ref.bib}    % 文献数据库
+}
