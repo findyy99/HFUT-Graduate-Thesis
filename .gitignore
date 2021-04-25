@@ -11,4 +11,4 @@
 _minted-main
 .DS_Store
 .gitignore
-.synctex.gz
+main.synctex.gz
